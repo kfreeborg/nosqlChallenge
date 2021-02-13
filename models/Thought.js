@@ -8,17 +8,21 @@ const ReactionSchema = new Schema(
       default: () => new Types.ObjectId(),
     },
     reactionBody: {
-      Type: String,
+      type: String,
       required: true,
       minLength: 1,
       maxLength: 280,
     },
     username: {
-      Type: String,
+      type: String,
+      required: true,
+    },
+    userId: {
+      type: String,
       required: true,
     },
     createdAt: {
-      Type: Date,
+      type: Date,
       default: Date.now,
       get: (createdAtVal) =>
         moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
@@ -35,25 +39,25 @@ const ReactionSchema = new Schema(
 const ThoughtSchema = new Schema(
   {
     thoughtText: {
-      Type: String,
+      type: String,
       required: true,
       minLength: 1,
       maxLength: 280,
     },
     createdAt: {
-      Type: Date,
+      type: Date,
       default: Date.now,
       get: (createdAtVal) =>
         moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
     },
     username: {
-      Type: String,
+      type: String,
       required: true,
     },
     reactions: [ReactionSchema],
     userId: {
       type: String,
-      required: [true, "userId is required for this thought creation"],
+      required: true,
     },
   },
   {
