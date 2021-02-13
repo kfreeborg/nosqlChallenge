@@ -1,9 +1,13 @@
 const { User } = require("../models");
 
-app.get("/api/users", async (res, req) => {
-  try {
-    const result = await User.find();
-  } catch (e) {
-    res.status(500).send(e);
-  }
-});
+const userController = {
+  getAllUsers(req, res) {
+    User.find({})
+      .select("__v")
+      .then((dbUserData) => res.json(dbUserData))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
+};
